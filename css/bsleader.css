@@ -1,0 +1,24 @@
+img {
+	padding: 20px;
+}
+
+.thumbnail{
+	background-color: rgba(26, 188, 156,0.8);
+	border-color: white;
+	border-radius: 10px;
+	border-width: 5px;
+	margin: 10px;
+}
+
+.caption{
+	background-color: rgba(236, 240, 241,0.5);
+}
+
+#recordPicker{
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#guest{
+	background-color: rgba(155, 89, 182,0.5)
+}
