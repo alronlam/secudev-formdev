@@ -60,6 +60,15 @@ class VerifyLogin extends CI_Controller {
 	}
 
 	function index() {
+		// Prevents direct access. Can't use session check since not yet logged in
+		// Does not check if referred from a different site. Derp
+		$this->load->library('user_agent');
+		$empty = "";
+	    if ($empty == $this->agent->referrer()) {
+	    	redirect('', 'refresh');
+	    }
+	    
+
 		$this -> load -> library('form_validation');
 		$this -> form_validation -> set_rules('username', 'Username', 'trim|required|xss_clean');
 		$this -> form_validation -> set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
