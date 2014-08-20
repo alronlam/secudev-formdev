@@ -2,6 +2,7 @@
 
 class VerifyLogin extends CI_Controller {
 
+
 	function dev($id = 0){
 		$this -> load -> model('class_model', '', TRUE);
 

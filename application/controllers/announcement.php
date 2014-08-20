@@ -6,6 +6,7 @@ class Announcement extends CI_Controller {
 		//needed for the form stuff in the view
 		$this->load->helper('form');
 		$this->load->model('announcement_model');
+		
 	}
 
 	public function index()
@@ -21,11 +22,15 @@ class Announcement extends CI_Controller {
 
 	public function add()
 	{
+		redirect_if_not_logged_in();
+
 		$this->load->view('admin/information');
 	}
 	
 	public function added()
 	{
+		redirect_if_not_logged_in();
+
 		$data = array(
 			'announcement' => $this->input->post('announcementTitle'),
 			'description' => $this->input->post('announcementDesc'),
@@ -39,6 +44,8 @@ class Announcement extends CI_Controller {
 
 	public function edit($id)
 	{
+		redirect_if_not_logged_in();
+
 		$data = array();
 		$data['aEntry'] = $this->announcement_model->get($id);
 		$this->load->view('admin/info/announcement', $data);
@@ -46,6 +53,8 @@ class Announcement extends CI_Controller {
 
 	public function edited()
 	{
+		redirect_if_not_logged_in();
+
 		$data = array(
 			'announcement' => $this->input->post('announcementTitle'),
 			'description' => $this->input->post('announcementDesc'),
@@ -58,12 +67,16 @@ class Announcement extends CI_Controller {
 	
 	public function delete($id)
 	{
+		redirect_if_not_logged_in();
+
 		$this->announcement_model->delete($id);
 		$this->view();
 	}
 
 	public function undelete($id)
 	{
+		redirect_if_not_logged_in();
+		
 		$this->view();
 	}
 }

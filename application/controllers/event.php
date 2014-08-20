@@ -7,6 +7,7 @@ class Event extends CI_Controller {
 		//needed for the form stuff in the view
 		$this->load->helper('form');
 		$this->load->model('event_model');
+		
 	}
 
 	public function index()
@@ -23,12 +24,13 @@ class Event extends CI_Controller {
 
 	public function add()
 	{
-
+		redirect_if_not_logged_in();
 		$this->load->view('admin/information');
 	}
 
 	public function added()
 	{
+		redirect_if_not_logged_in();
 		$data = array(
 		   'event' => $this->input->post('eventTitle'),
 		   'description' => $this->input->post('eventDesc'),
@@ -41,41 +43,37 @@ class Event extends CI_Controller {
 		$this->view();
 	}
 	
-	public function edit($id, $error = NULL)
+	public function edit($id)
 	{
-
+		redirect_if_not_logged_in();
 		$data['eEntry'] = $this->event_model->get($id);
-		if (!is_null($error)) {
-			$data['error'] = $error;
-		}
+
 		$this->load->view('admin/info/event', $data);
 	}
 	
 	public function edited()
 	{
-		try {
-			$data = array(
-				'event' => $this->input->post('eventTitle'),
-				'description' => $this->input->post('eventDesc'),
-				'eventDate' => date_format(new DateTime($this->input->post('eventDate')), 'Y-m-d'),
-				'pk' => $this->input->post('eID')
-				);
-			$this->event_model->edit($data);	
-			$this->view();
-		} catch (Exception $ex) {
-			$id = $this->input->post('eID');
-			$this->edit($id, "Incorrect date format");
-		}
+		redirect_if_not_logged_in();
+		$data = array(
+			'event' => $this->input->post('eventTitle'),
+			'description' => $this->input->post('eventDesc'),
+			'eventDate' => date('Y-m-d', strtotime($this->input->post('eventDate'))),
+			'pk' => $this->input->post('eID')
+			);
+		$this->event_model->edit($data);	
+		$this->view();	
 	}
 
 	public function delete($id)
 	{
+		redirect_if_not_logged_in();
 		$this->event_model->delete($id);
 		$this->view();
 	}
 
 	public function undelete($id)
 	{
+		redirect_if_not_logged_in();
 		$this->view();
 	}
 }

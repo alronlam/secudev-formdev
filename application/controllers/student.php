@@ -7,6 +7,7 @@ class Student extends CI_Controller {
 		$this->load->model('chapter_model');
 		$this->load->model('answer_model');
 		$this->load->helper('form');
+		redirect_if_not_logged_in();
 	}
 
 	/**

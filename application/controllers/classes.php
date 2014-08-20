@@ -7,6 +7,7 @@ class Classes extends CI_Controller {
 		//needed for the form stuff in the view
 		$this->load->helper('form');
 		$this->load->model('event_model');
+		redirect_if_not_logged_in();
 	}
 
 	public function index()
