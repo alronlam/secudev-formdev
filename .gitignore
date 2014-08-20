@@ -8,9 +8,7 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
-application/config/config.php
-
-*.bak
+.bak
 *.orig
 user_guide/*
 uploads/*

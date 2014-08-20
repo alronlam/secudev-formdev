@@ -31,14 +31,22 @@ class Media extends CI_Controller {
 
 	function do_upload()
 	{
+
+		$this->load->library('upload');
+
+		$fileName = $this->upload->data()["file_name"];
+		$fileName = $this->security->sanitize_filename($fileName); 
+		$config['file_name'] = $fileName;
+
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'txt|ppt|pptx|doc|docx|pdf|csv';
-		$config['max_size']	= '0';
-		$config['max_width']  = '0';
-		$config['max_height']  = '0';
+		$config['allowed_types'] = 'txt|ppt|pptx|doc|docx|pdf|csv|xls|xlsx';
+		$config['max_size']	= '25000';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
 		$config['remove_spaces'] = TRUE;
 
-		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
 
 		if ( ! $this->upload->do_upload())
 		{
