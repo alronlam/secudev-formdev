@@ -12,6 +12,7 @@
 		</div>
 		<div class = "row">
 			<div class="col-md-12">
+				
 				<div class="panel panel-default" id="event">
 					<div class="panel-body">
 						<?php

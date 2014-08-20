@@ -129,6 +129,7 @@ class Task_model extends CI_Model {
 	//This function is for assigning a task, and the ID of the new task is returned.
 	public function assignTask()//$faciCreatorID, $faciAssignedID, $description, $dateExpected)
 	{
+
 		$data = array(
 		   'description' => $this->input->post('task'),
 		   //'dateGiven' => date('yyyy-mm-dd'), //doesn't work for some reason

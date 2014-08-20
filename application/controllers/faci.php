@@ -28,6 +28,7 @@ class Faci extends CI_Controller {
 		$this->load->model('announcement_model');
 		$this->load->model('event_model');
 		$this->load->model('outreach_model');
+		redirect_if_not_logged_in();
 	}
 	
 	public function index()

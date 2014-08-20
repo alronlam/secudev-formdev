@@ -7,10 +7,19 @@ class BibleStudy extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->model('bible_study_model');
 		$this->load->model('faci_account_model');
+		
+		redirect_if_not_logged_in();
 	}
 
 	public function index()
 	{
+    	/*print_r($this->session->userdata);
+    	if (is_logged_in()) {
+			echo "in";
+		} else {
+			echo "logged out";
+		}*/
+		
 		$this->view();
 	}
 
@@ -20,6 +29,7 @@ class BibleStudy extends CI_Controller {
 		$faciRoles = $this->faci_account_model->getFaciRoles($id);
 		$data['isStudentHead'] = in_array(0, $faciRoles);
 		$data['bibleStudies'] = $this->bible_study_model->queryGroups();
+
 		$this->load->view('admin/bible_study', $data);
 	}
 
@@ -29,6 +39,7 @@ class BibleStudy extends CI_Controller {
 		$data = array();
 		
 		$data['faciList'] = $this->faci_account_model->getFaciList();
+
 		$this->load->view('admin/biblestudy/add', $data);
 	}
 

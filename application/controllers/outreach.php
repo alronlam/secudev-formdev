@@ -8,6 +8,7 @@ class Outreach extends CI_Controller {
 
 		//needed for the form stuff in the view
 		$this->load->helper('form'); 
+
 	}
 
 	public function index()
@@ -31,6 +32,8 @@ class Outreach extends CI_Controller {
 	*/
 	public function add($data = array())
 	{
+		redirect_if_not_logged_in();
+
 		$data['faciList'] = $this->faci_account_model->getFaciList();
 		$this->load->view('commhead/outreach/add', $data);
 	}
@@ -40,6 +43,8 @@ class Outreach extends CI_Controller {
 	*/
 	public function added()
 	{
+		redirect_if_not_logged_in();
+
 		$data = array();
 		$newActivityPK = $this->outreach_model->addActivity();
 		$data['newActivity'] = $this->outreach_model->getActivityDetails($newActivityPK);
@@ -51,6 +56,8 @@ class Outreach extends CI_Controller {
 	*/
 	public function delete($activityPK)
 	{
+		redirect_if_not_logged_in();
+
 		$data = array();
 		$data['deletedActivity'] = $this->outreach_model->getActivityDetails($activityPK);
 
@@ -62,6 +69,8 @@ class Outreach extends CI_Controller {
 	*/
 	public function undelete($activityPK)
 	{
+		redirect_if_not_logged_in();
+
 		$this->outreach_model->undoDeleteActivity($activityPK);
 		$this->index();
 	}
@@ -71,6 +80,8 @@ class Outreach extends CI_Controller {
 	*/
 	public function edit($activityPK)
 	{
+		redirect_if_not_logged_in();
+
 		$data = array();
 		$data['faciList'] = $this->faci_account_model->getFaciList();
 		$data['activity'] = $this->outreach_model->getActivityDetails($activityPK);
@@ -82,6 +93,9 @@ class Outreach extends CI_Controller {
 	*/
 	public function edited($activityPK)
 	{
+		redirect_if_not_logged_in();
+
+
 		$data = array();
 		$data['editedActivity'] = $this->outreach_model->getActivityDetails($activityPK);
 
