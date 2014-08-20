@@ -12,6 +12,14 @@
 		</div>
 		<div class = "row">
 			<div class="col-md-12">
+				
+				<?PHP if (isset($error)) : ?>
+				<div id="taskStatus" class="alert alert-success alert-dismissable fade in">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Incorrect date format used.
+				</div>
+				<?PHP endif; ?>
+
 				<div class="panel panel-default" id="event">
 					<div class="panel-body">
 						<?php

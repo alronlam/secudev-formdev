@@ -105,6 +105,7 @@ class Tasks extends CI_Controller {
 	/*
 	*	This function called when actually assigning a task.
 	*/
+	
 	public function assigned()
 	{
 		$newTaskPK = $this->task_model->assignTask();
