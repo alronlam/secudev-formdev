@@ -190,10 +190,10 @@ class Admin extends CI_Controller {
 			$data['result'] = array();
 			/* Set the batch for the faci */
 			foreach ($values as $row) {
-				$row['batch'] = $faci_batch;
-				$row['firstname'] = ucwords($row['firstname']);
-				$row['lastname'] = ucwords($row['lastname']);
-				$row['course'] = strtoupper($row['course']);
+				$row['batch'] = urlencode($faci_batch);
+				$row['firstname'] = ucwords(urlencode($row['firstname']));
+				$row['lastname'] = ucwords(urlencode($row['lastname']));
+				$row['course'] = strtoupper(urlencode($row['course']));
 				$errorMessage = $this -> account_model -> getInsertErrors($row);
 				if ($errorMessage != "") {
 					$row['error'] = $errorMessage;
@@ -224,10 +224,10 @@ class Admin extends CI_Controller {
 		/* Do database insertion for each row. */
 		foreach ($values as $row) {
 			/*Checks if the faci to be added already exists. */
-			$row['batch'] = $faci_batch;
-			$row['firstname'] = ucwords($row['firstname']);
-			$row['lastname'] = ucwords($row['lastname']);
-			$row['course'] = strtoupper($row['course']);
+			$row['batch'] = urlencode($faci_batch);
+			$row['firstname'] = ucwords(urlencode($row['firstname']));
+			$row['lastname'] = ucwords(urlencode($row['lastname']));
+			$row['course'] = strtoupper(urlencode($row['course']));
 			
 			/* Insert into database using faci account model */
 			$errorMessage = $this -> account_model -> getInsertErrors($row);
@@ -293,9 +293,9 @@ class Admin extends CI_Controller {
 			$data['result'] = array();
 
 			foreach($values as $row){
-				$row['firstname'] = ucwords($row['firstname']);
-				$row['lastname'] = ucwords($row['lastname']);
-				$row['course'] = strtoupper($row['course']);
+				$row['firstname'] = ucwords(urlencode($row['firstname']));
+				$row['lastname'] = ucwords(urlencode($row['lastname']));
+				$row['course'] = strtoupper(urlencode($row['course']));
 				
 				$errorMessage = $this -> account_model -> getInsertErrors($row);
 				if ($errorMessage != "") {
@@ -332,9 +332,9 @@ class Admin extends CI_Controller {
 		foreach($values as $row){
 			$row['classFk'] = $classPk;
 			/* Capitalize first letters for names and all caps for course*/
-			$row['firstname'] = ucwords($row['firstname']);
-			$row['lastname'] = ucwords($row['lastname']);
-			$row['course'] = strtoupper($row['course']);
+			$row['firstname'] = ucwords(urlencode($row['firstname']));
+			$row['lastname'] = ucwords(urlencode($row['lastname']));
+			$row['course'] = strtoupper(urlencode($row['course']));
 			/* Insert into database using student model */
 			
 			$errorMessage = $this -> account_model -> getInsertErrors($row);

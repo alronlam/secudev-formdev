@@ -26,18 +26,19 @@ class Media extends CI_Controller {
 
 	function upload()
 	{
+		redirect_if_not_logged_in();
 		$this->load->view('faci/upload_media', array('error' => ' ' ));
 	}
 
 	function do_upload()
 	{
+		redirect_if_not_logged_in();
 
 		$this->load->library('upload');
-
 		$fileName = $this->upload->data()["file_name"];
 		$fileName = $this->security->sanitize_filename($fileName); 
 		$config['file_name'] = $fileName;
-
+		
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'txt|ppt|pptx|doc|docx|pdf|csv|xls|xlsx';
 		$config['max_size']	= '25000';

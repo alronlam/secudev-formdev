@@ -64,9 +64,15 @@ class Account extends CI_Controller {
 
 	public function logout()
 	{
+
+		
+
+		$this->session->userdata = NULL;
 		$this->session->sess_destroy();
-		$this->load->helper(array('form'));
-		$this->load->view('login');
+		redirect('', 'refresh');  
+
+		//$this->load->helper(array('form'));
+		//$this->load->view('login');
 	}
 
 	public function forgot($error = ''){

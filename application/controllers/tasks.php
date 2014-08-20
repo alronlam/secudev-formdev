@@ -22,6 +22,7 @@ class Tasks extends CI_Controller {
 
 		$this->load->helper('form'); //needed for the form stuff in the view
 		$this->load->model('task_model');
+		redirect_if_not_logged_in();
 		
 	}
 
@@ -105,6 +106,7 @@ class Tasks extends CI_Controller {
 	/*
 	*	This function called when actually assigning a task.
 	*/
+	
 	public function assigned()
 	{
 		$newTaskPK = $this->task_model->assignTask();

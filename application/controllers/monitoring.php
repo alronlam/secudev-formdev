@@ -17,6 +17,13 @@ class Monitoring extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	
+	function __construct()
+	{
+		parent::__construct();
+		redirect_if_not_logged_in();
+	}
+
 	public function index()
 	{
 		$this->load->view('attendance/monitor');
