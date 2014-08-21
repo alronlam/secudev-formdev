@@ -171,7 +171,27 @@ return null;
 		**/        
 		activate: function() {
 			this.$input.filter('[name="old"]').focus();
-			initPwdStr();
+			$("#newPassword").keyup(function(){
+				var strength = zxcvbn($("#newPassword").val());
+
+				var pwdMeter = $("#pwdMeter");
+				pwdMeter.html(strength.crack_time_display);
+			
+				var newClass;
+				switch(strength.score){
+					case 0: newClass = "veryweak"; break;
+					case 1: newClass = "weak"; break;
+					case 2: newClass = "medium"; break;
+					case 3: newClass = "strong"; break;
+					case 4: newClass = "verystrong"; break;
+				}
+
+				pwdMeter.removeAttr('class');
+				pwdMeter.addClass('form-control');
+				pwdMeter.addClass(newClass);
+
+
+			});
 		},  
 		
 	   /**
@@ -194,7 +214,7 @@ Password.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
 	'<div class="editable-password"><label><span>Old: </span><input type="password" name="old" class="input-small" ></label></div><br>' +
 	'<div class="editable-password"><label><span>Password: </span><input type="password" id="newPassword" name="password" class="input-small" ></label></div><br>' +
 	'<div class="editable-password"><label><span>Confirm: </span><input type="password" name="confirm" class="input-mini" ></label></div><br />'+
-	'<label> Assuming a speed of 2.8B guesses/s, a computer can guess your password in: </label> <br/>'+
+	'<label> Based on complexity and a dictionary of common passwords, a computer can guess your password in: </label> <br/>'+
 	'<span id="pwdMeter" class="neutral"></span></div><br />',
 
 	inputclass: ''

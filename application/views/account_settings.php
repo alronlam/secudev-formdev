@@ -5,7 +5,7 @@
 
 	<link href="<?PHP echo base_url(); ?>css/bootstrap-editable.css" rel="stylesheet"/>
 	<script type="text/javascript" src="<?PHP echo base_url(); ?>js/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="<?PHP echo base_url(); ?>js/jquery-pwdstr.js"></script>
+    <script type="text/javascript" src="<?PHP echo base_url(); ?>js/zxcvbn.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/bootstrap-editable.min.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/moment.min.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/combodate.js"></script>
@@ -18,19 +18,19 @@
 		}
 
         .veryweak{
-            color:#B40404;
+            color:#F22613;
         }
         .weak{
-            color:#DF7401;
+            color:#F9690E;
         }
         .medium{
-            color:#FFFF00;
+            color:#F9BF3B;
         }
         .strong{
-            color:#9AFE2E;
+            color:#19B5FE;
         }
         .verystrong{
-            color:#0B610B;
+            color:#87D37C;
         }
 
 	</style>
