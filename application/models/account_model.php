@@ -218,6 +218,7 @@ class account_model extends CI_Model {
 			'password' => hash('sha256', $password)
 			);
 		$this -> db -> update('PersonalInfo', $data);
+		$this -> session -> set_userdata('pw', hash('sha256', $password)); 
 
 		return $status;
 	}
