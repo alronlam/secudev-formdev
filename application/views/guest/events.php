@@ -55,7 +55,7 @@ $isStudentHead = $permissions && in_array(0, $permissions);
 								
 								?>
 							</div>
-							<?PHP echo $formdev_logo_image; ?>
+							
 							<div class="panel-body">
 								<div class="row">
 									<div class="pull-left">

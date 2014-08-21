@@ -43,9 +43,9 @@
 						<li class='visible-sm'><?= anchor('tasks', '<i class="fa fa-list"></i>'); ?></li>
 
 
-						<li class='hidden-sm'><?= anchor('faci/students', 'My students'); ?></li>
+					<!-- 	<li class='hidden-sm'><?= anchor('faci/students', 'My students'); ?></li>
 						<li class='visible-sm'><?= anchor('faci/students', '<i class="fa fa-group"></i>'); ?></li>
-
+ -->
 						<?php if (hasRole(1, $faciRoles) || hasRole(8, $faciRoles)): ?>
 							<li class="dropdown">
 								<a class="hidden-sm dropdown-toggle" data-toggle="dropdown" href="#">
