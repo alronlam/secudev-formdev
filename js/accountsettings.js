@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	//toggle `popup` / `inline` mode
 	$.fn.editable.defaults.mode = 'inline';
 
@@ -6,8 +7,9 @@ $(document).ready(function() {
 		type: 'text',
 		pk: 1,
 		url: 'update'
-});
-	
+	});
+
+
 	$('#password').editable({
 		pk: 2,
 		url: 'updatePassword',
@@ -43,11 +45,12 @@ $(document).ready(function() {
 		{value: 'BS INSYS', text: 'BS INSYS'}
 		]
 
-	});
-	
-
-	
+	});	
 });
+
+function initPwdStr(){
+	$("#newPassword").pwdstr($("#pwdMeter"));
+}
 
 (function ($) {
 	"use strict";
@@ -168,6 +171,7 @@ return null;
 		**/        
 		activate: function() {
 			this.$input.filter('[name="old"]').focus();
+			initPwdStr();
 		},  
 		
 	   /**
@@ -188,8 +192,10 @@ Password.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
 	clear: true,
 	tpl: 
 	'<div class="editable-password"><label><span>Old: </span><input type="password" name="old" class="input-small" ></label></div><br>' +
-	'<div class="editable-password"><label><span>Password: </span><input type="password" name="password" class="input-small" ></label></div><br>' +
-	'<div class="editable-password"><label><span>Confirm: </span><input type="password" name="confirm" class="input-mini" ></label></div>',
+	'<div class="editable-password"><label><span>Password: </span><input type="password" id="newPassword" name="password" class="input-small" ></label></div><br>' +
+	'<div class="editable-password"><label><span>Confirm: </span><input type="password" name="confirm" class="input-mini" ></label></div><br />'+
+	'<label> Assuming a speed of 2.8B guesses/s, a computer can guess your password in: </label> <br/>'+
+	'<span id="pwdMeter" class="neutral"></span></div><br />',
 
 	inputclass: ''
 });

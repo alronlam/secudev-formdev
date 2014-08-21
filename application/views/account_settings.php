@@ -4,16 +4,35 @@
 	<?PHP $this->load->view("header"); ?>
 
 	<link href="<?PHP echo base_url(); ?>css/bootstrap-editable.css" rel="stylesheet"/>
+	<script type="text/javascript" src="<?PHP echo base_url(); ?>js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="<?PHP echo base_url(); ?>js/jquery-pwdstr.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/bootstrap-editable.min.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/moment.min.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/combodate.js"></script>
 	<script src="<?PHP echo base_url(); ?>js/accountsettings.js"></script>
-	
+
 	<style type="text/css">
 		.editable-password span {
 			width: 80px;
 			display: inline-block;
 		}
+
+        .veryweak{
+            color:#B40404;
+        }
+        .weak{
+            color:#DF7401;
+        }
+        .medium{
+            color:#FFFF00;
+        }
+        .strong{
+            color:#9AFE2E;
+        }
+        .verystrong{
+            color:#0B610B;
+        }
+
 	</style>
 
 </head>
@@ -103,4 +122,7 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+
+    </script>
 	</html>
