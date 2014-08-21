@@ -46,11 +46,11 @@ class Account extends CI_Controller {
 
 	public function updatePassword() {
 		$value = $this->input->post('value');
+		$old = $value['old'];
 		$password = $value['password'];
 		$confirm = $value['confirm'];
 
-		$status = $this -> account_model -> updatePassword($password, $confirm);
-
+		$status = $this -> account_model -> updatePassword($old, $password, $confirm);
 		if (!$status['ok']) {
 			header('HTTP 400 Bad Request', true, 400);
 			echo $status['message'];
