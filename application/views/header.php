@@ -26,6 +26,10 @@
 <?php else: ?>
 	<title>FORMDEV - Formation and Development</title>
 <?php endif; ?>
+<?php 	
+$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, no-transform, max-age=0, post-check=0, pre-check=0");
+$this->output->set_header("Pragma: no-cache");
+?>
 <link rel="stylesheet" href="<?PHP echo base_url(); ?>css/docs.min.css">
 <link rel="stylesheet" href="<?PHP echo base_url(); ?>css/jquery-ui.css">
 <link rel="stylesheet" href="<?PHP echo base_url(); ?>css/bootstrap.min.css">
