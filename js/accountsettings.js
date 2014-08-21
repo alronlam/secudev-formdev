@@ -12,6 +12,7 @@ $(document).ready(function() {
 		pk: 2,
 		url: 'updatePassword',
 		value: {
+			old: "",
 			password: "",
 			confirm: ""
 		}
@@ -142,6 +143,7 @@ return null;
 			if(!value) {
 				return;
 			}
+			this.$input.filter('[name="old"]').val(value.old);
 			this.$input.filter('[name="password"]').val(value.password);
 			this.$input.filter('[name="confirm"]').val(value.confirm);
 		},       
@@ -153,6 +155,7 @@ return null;
 		**/          
 		input2value: function() { 
 			return {
+				old: this.$input.filter('[name="old"]').val(), 
 				password: this.$input.filter('[name="password"]').val(), 
 				confirm: this.$input.filter('[name="confirm"]').val(), 
 			};
@@ -164,7 +167,7 @@ return null;
 		@method activate() 
 		**/        
 		activate: function() {
-			this.$input.filter('[name="password"]').focus();
+			this.$input.filter('[name="old"]').focus();
 		},  
 		
 	   /**
@@ -183,7 +186,9 @@ return null;
 
 Password.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
 	clear: true,
-	tpl: '<div class="editable-password"><label><span>Password: </span><input type="password" name="password" class="input-small" ></label></div><br>' +
+	tpl: 
+	'<div class="editable-password"><label><span>Old: </span><input type="password" name="old" class="input-small" ></label></div><br>' +
+	'<div class="editable-password"><label><span>Password: </span><input type="password" name="password" class="input-small" ></label></div><br>' +
 	'<div class="editable-password"><label><span>Confirm: </span><input type="password" name="confirm" class="input-mini" ></label></div>',
 
 	inputclass: ''

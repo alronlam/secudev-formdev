@@ -180,17 +180,25 @@ class account_model extends CI_Model {
 	/**
 	 * Updates the database given the password
 	 */
-	function updatePassword($password, $confirm) {
+	function updatePassword($old, $password, $confirm) {
 		$status = array(
 			'ok' => true,
 			'message' => ''
 			);
 
-		if (empty($password) || empty($confirm)) {
+		
+		if (empty($old) || empty($password) || empty($confirm)) {
 			$status['ok'] = false;
-			$status['message'] = 'Both fields are required.';
+			$status['message'] = 'All fields are required.';
 			return $status;
 		};
+
+		if (hash('sha256', $old)!= $this -> session -> userdata('pw')) {
+			$status['ok'] = false;
+			$status['message'] = 'Old password is incorrect.';
+			return $status;
+		}
+
 
 		if ($password != $confirm) {
 			$status['ok'] = false;
