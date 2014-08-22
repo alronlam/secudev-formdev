@@ -2,6 +2,7 @@
 /* Shared functions for both faci and student */
 class account_model extends CI_Model {
 	const TABLE_NAME = 'PersonalInfo';
+	const ROLEMAP_TABLE_NAME = 'FaciRoleMap';
 	public $COLUMNS = array('id', 'password', 'firstName', 'middleName', 'lastName', 'course', 'birthDate');
 	public $COLUMN_WITHOUT_NAME = array('id', 'password', 'course', 'birthDate');
 
@@ -109,6 +110,27 @@ class account_model extends CI_Model {
 			return false;
 		}
 	}
+	
+	/**
+	 * Given a person ID, this function returns the selected person's highest role.
+	 *
+	 * Returns false if person ID is invalid.
+	 */
+	function getRole($id){
+		$this -> db -> select("faciTypeFk as role");
+		$this -> db -> from(account_model::ROLEMAP_TABLE_NAME);
+		$this -> db -> where('faciId', $id);
+		$this -> db -> limit(1);
+		$this -> db -> order_by('role','asc');
+		$query = $this -> db -> get();
+
+		if ($query -> num_rows() == 1) {
+			return $query ->row()->role;
+		}
+		else {
+			return false;
+		}
+	}
 
 	/**
 	 * Given a person ID, this function returns the selected person's first name only.
@@ -176,7 +198,31 @@ class account_model extends CI_Model {
 		$this -> db -> update('PersonalInfo', $data);
 		$this -> session -> set_userdata($field, $value);
 	}
+	
+	/**
+	 * Updates the database given a field and the new value
+	 */
+	function updateSpecified($field, $value, $id) {
+		$this -> db -> where('id', $id);
+		$data = array(
+			$field => $value
+			);
+		$this -> db -> update('PersonalInfo', $data);
+		$this -> session -> set_userdata($field, $value);
+	}
 
+	/**
+	 * Updates the database given a field and the new value
+	 */
+	function updateRole($value, $id) {
+		$this -> db -> where('faciId', $id);
+		$data = array(
+			'faciTypeFk' => $value
+			);
+		$this -> db -> update('FaciRoleMap', $data);
+		$this -> session -> set_userdata($field, $value);
+	}
+	
 	/**
 	 * Updates the database given the password
 	 */

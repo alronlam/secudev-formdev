@@ -84,6 +84,24 @@ class Admin extends CI_Controller {
 		$facis = $this->faci_account_model->getFaciList();
 		$this->load->view('admin/account/index');
 	}
+	
+	public function updateRole() {
+		$this->load->helper('file');
+		
+		$id = $this->session->userdata('modifying');
+		$value = $this->input->post('value');
+		
+		
+		log_message("debug","variable ".$id);
+		log_message("debug","variable ".$value);
+
+		if ($value == '') {
+			header('HTTP 400 Bad Request', true, 400);
+			echo "This field is required.";
+			return;
+		}
+		$this -> account_model -> updateRole($value, $id);
+	}
 
 		/**
 	 * Account management.
@@ -118,6 +136,15 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/account/facis', $data);
 	}
 
+	public function edit($id){
+		if($id =='updateRole')
+			$this->updateRole();
+		$this->session->unset_userdata('modifying');
+		$this->session->set_userdata('modifying', $id);
+		
+		$this->load->view('admin/account/edit');
+	}
+	
 	public function students(){
 
 		$students = $this->student_model->getStudentList();

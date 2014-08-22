@@ -40,7 +40,7 @@
 								<td><?PHP echo $faci['firstName'] . " " . $faci['lastName'] ?></td>
 								<td><?PHP echo $faci['bibleStudy'] ?></td>
 								<td class="hidden-xs">
-									<?PHP echo anchor('', 'Modify account', array('class' => 'btn btn-primary btn-xs')); ?>
+									<?PHP echo anchor('admin/edit/'.$faci['id'], 'Modify account', array('class' => 'btn btn-primary btn-xs')); ?>
 									<!--<?PHP //echo anchor('', 'Remind tasks', array('class' => 'btn btn-warning btn-xs')); ?>-->
 								</td>
 							</tr>

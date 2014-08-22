@@ -16,6 +16,7 @@
 	class faci_account_model extends CI_Model {
 		const TABLE_NAME = 'Faci';
 		const FACI_ROLE_TABLE_NAME = 'FaciRoleMap';
+		const FACI_TYPE_TABLE_NAME = 'FaciType';
 
 	/**
 	 * Darren notes: Instead of $row, pass each value of the row to the 
@@ -62,6 +63,54 @@
 				// 
 				// Reduce by 1 to resolve issue
 				$type[] = $row['faciType'] - 1; 
+			}
+			return $type;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public function getFaciType($faci_id) {
+
+		// First check if person is a facilitator
+		if ( $this -> get($faci_id) ){
+
+		}else{
+			return false;
+		}
+
+		$this -> db -> select('FaciRoleMap.title AS title');
+		$this -> db -> from(faci_account_model::FACI_TYPE_TABLE_NAME);
+		$this -> db -> where('faciId', $faci_id);
+		$query = $this -> db -> get();
+
+		if ($query -> num_rows() > 0) {
+			$result = $query -> result_array();
+			
+			return $result;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public function getAllFaciType() {
+
+		$this -> db -> select('FaciRoleMap.pk as role_id, FaciRoleMap.title AS title');
+		$this -> db -> from(faci_account_model::FACI_TYPE_TABLE_NAME);
+		$query = $this -> db -> get();
+
+		if ($query -> num_rows() > 0) {
+			$result = $query -> result_array();
+			$type = array();
+			foreach ($result as $row) {
+				// The database represents the roles starting by 1
+				// But the system represents the roles starting by 0
+				// 
+				// Reduce by 1 to resolve issue
+				$type[$row['role_id'] - 1] = $row['title']; 
+				
 			}
 			return $type;
 		}
