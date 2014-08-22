@@ -106,6 +106,19 @@ class VerifyLogin extends CI_Controller {
 		$username = $this -> input -> post('username');
 		$result = $this -> account_model -> login($username, $password);
 		// sessionize user data
+		
+		log_message("debug","attempts: ".$this->session->userdata('attempt'));
+		if($this->session->userdata('attempt') > 5){
+			log_message("debug","Check attempts: ".$this->session->userdata('attempt'));
+			$this -> form_validation -> set_message('check_database', 'Too many failed login attempts');
+			return FALSE;
+		}
+		else{
+			$this->session->set_userdata('attempt', $this->session->userdata('attempt')+1);
+			log_message("debug","Failedattempts: ".$this->session->userdata('attempt'));
+		}
+		
+		
 		if ($result) {
 			$this -> session -> set_userdata('id', $result -> id);
 			$this -> session -> set_userdata('pw', hash('sha256', $password));
@@ -114,11 +127,14 @@ class VerifyLogin extends CI_Controller {
 			$this -> session -> set_userdata('lastName', $result -> lastName);
 			$this -> session -> set_userdata('course', $result -> course);
 			$this -> session -> set_userdata('birthDate', $result -> birthDate);
+			log_message("debug","reset: ".$this->session->userdata('attempt'));
+			$this->session->set_userdata('attempt', 0);
 			
 			return TRUE;
 		}
 		else {
 			$this -> form_validation -> set_message('check_database', 'Invalid username or password');
+			
 			return FALSE;
 		}
 	}

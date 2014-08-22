@@ -41,10 +41,26 @@ $(document).ready(function() {
 		{value: 'BS CS-IST', text: 'BS CS-IST'},
 		{value: 'BS CS-NE', text: 'BS CS-NE'},
 		{value: 'BS CS-ST', text: 'BS CS-ST'},
+		{value: 'BS CS-CSE', text: 'BS CS-ST'},
 		{value: 'BS IT', text: 'BS IT'},
 		{value: 'BS INSYS', text: 'BS INSYS'}
 		]
 
+	});	
+	
+	$('#role').editable({
+		pk: 5,
+		url: 'updateRole',
+		source: [
+		{value: '1', text: 'Student Head'},
+		{value: '2', text: 'Class Facilitator'},
+		{value: '3', text: 'Bible Study Leader'},
+		{value: '4', text: 'Outreach Head'},
+		{value: '5', text: 'IMC Head'},
+		{value: '6', text: 'Communications Head'},
+		{value: '7', text: 'Monitoring Head'},
+		{value: '8', text: 'Facilitator'}
+		]
 	});	
 });
 
