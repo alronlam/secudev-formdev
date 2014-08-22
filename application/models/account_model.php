@@ -26,32 +26,61 @@ class account_model extends CI_Model {
 	}
 
 	function login($username, $password) {
+		$salt = $this->getSalt($username);
+		$saltedPW = $this->hashSalt($password, $salt);
+
 		$this -> db -> select('id, firstName, middleName, lastName, course, birthDate');
 		$this -> db -> from(account_model::TABLE_NAME);
 		$this -> db -> where('id', $username);
-		// DEBUG, make login available for all.
-		$this -> db -> where('password', hash('sha256', $password)); 
+		$this -> db -> where('password', $saltedPW); 
+		//$this -> db -> where('password', hash('sha256', $password)); // for unsalted login
 		$this -> db -> limit(1);
 		$query = $this -> db -> get();
 
-		if ($query -> num_rows() == 1)
+		if ($query -> num_rows() == 1) {
+			$this -> session -> set_userdata('pw', $saltedPW);
+			$this -> session -> set_userdata('salt', $salt);
 			return $query -> row();
+		}
 		return false;
 	}
 
 	/* Private function for logging in , used by sessions */
-	private function _login($username, $password) {
+	private function _login($username, $saltedPW) {
+		
 		$this -> db -> select('id, firstName, middleName, lastName, course, birthDate');
 		$this -> db -> from(account_model::TABLE_NAME);
 		$this -> db -> where('id', $username);
-		$this -> db -> where('password', $password); 
+		$this -> db -> where('password', $saltedPW); 
+		$this -> db -> limit(1);
+		$query = $this -> db -> get();
+
+		if ($query -> num_rows() == 1) {
+			return $query -> row();
+		}
+
+		return false;
+	}
+
+	private function getSalt($username) {
+		$this -> db -> select('salt');
+		$this -> db -> from(account_model::TABLE_NAME);
+		$this -> db -> where('id', $username);
 		$this -> db -> limit(1);
 		$query = $this -> db -> get();
 
 		if ($query -> num_rows() == 1)
-			return $query -> row();
+			return $query -> row() -> salt;
+		return false;	
+	}
 
-		return false;
+	private function hashSalt($password, $salt) {
+		$appended = $password . "cookie" . $salt;
+		return hash('sha256', $appended);
+	}
+
+	private function generateSalt() {
+		return uniqid();
 	}
 
 	function getAccount(){
@@ -232,19 +261,20 @@ class account_model extends CI_Model {
 			'message' => ''
 			);
 
-		
+		$salt = $this->session->userdata('salt');
+		$oldSaltedPW = $this->hashSalt($old, $salt);
+
 		if (empty($old) || empty($password) || empty($confirm)) {
 			$status['ok'] = false;
 			$status['message'] = 'All fields are required.';
 			return $status;
 		};
 
-		if (hash('sha256', $old)!= $this -> session -> userdata('pw')) {
+		if ($oldSaltedPW != $this -> session -> userdata('pw')) {
 			$status['ok'] = false;
 			$status['message'] = 'Old password is incorrect.';
 			return $status;
 		}
-
 
 		if ($password != $confirm) {
 			$status['ok'] = false;
@@ -260,11 +290,18 @@ class account_model extends CI_Model {
 
 		$id = $this -> session -> userdata('id');
 		$this -> db -> where('id', $id);
+
+		$salt = $this->generateSalt();
+		$salted = $this->hashSalt($password, $salt);
+
 		$data = array(
-			'password' => hash('sha256', $password)
-			);
+			'password' => $salted,
+			'salt' => $salt
+		);
 		$this -> db -> update('PersonalInfo', $data);
-		$this -> session -> set_userdata('pw', hash('sha256', $password)); 
+		$this -> session -> set_userdata('pw', $salted);
+		$this -> session -> set_userdata('salt', $salt);
+
 
 		return $status;
 	}

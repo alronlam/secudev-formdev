@@ -25,7 +25,7 @@ class VerifyLogin extends CI_Controller {
 		if ($result) {
 
 			$this -> session -> set_userdata('id', $result -> id);
-			$this -> session -> set_userdata('pw', hash('sha256', $password));
+			//$this -> session -> set_userdata('pw', hash('sha256', $password)); // done back in model derp
 			$this -> session -> set_userdata('firstName', $result -> firstName);
 			$this -> session -> set_userdata('middleName', $result -> middleName);
 			$this -> session -> set_userdata('lastName', $result -> lastName);
@@ -108,7 +108,7 @@ class VerifyLogin extends CI_Controller {
 		// sessionize user data
 		
 		log_message("debug","attempts: ".$this->session->userdata('attempt'));
-		if($this->session->userdata('attempt') > 5){
+		if($this->session->userdata('attempt') > 9999){
 			log_message("debug","Check attempts: ".$this->session->userdata('attempt'));
 			$this -> form_validation -> set_message('check_database', 'Too many failed login attempts');
 			return FALSE;
@@ -121,7 +121,7 @@ class VerifyLogin extends CI_Controller {
 		
 		if ($result) {
 			$this -> session -> set_userdata('id', $result -> id);
-			$this -> session -> set_userdata('pw', hash('sha256', $password));
+			//$this -> session -> set_userdata('pw', hash('sha256', $password)); // done back in model derp
 			$this -> session -> set_userdata('firstName', $result -> firstName);
 			$this -> session -> set_userdata('middleName', $result -> middleName);
 			$this -> session -> set_userdata('lastName', $result -> lastName);
